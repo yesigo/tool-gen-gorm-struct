@@ -14,6 +14,13 @@ import (
 	"gorm.io/gorm"
 )
 
+// ; 版本信息变量，由 makefile 通过 -ldflags 注入
+var (
+	Version   = "dev"     // ; 版本号，如: 1.0.0
+	BuildTime = "unknown" // ; 构建时间，如: 2026-03-20_12:00:00
+	GitHash   = "unknown" // ; Git 提交哈希，如: a1b2c3d
+)
+
 // ; Config 配置文件结构
 type Config struct {
 	Database DatabaseConfig `yaml:"database"`
@@ -83,6 +90,7 @@ func main() {
 
 	//; 定义 flag
 	helpFlag := flag.Bool("h", false, "Display this help message")
+	versionFlag := flag.Bool("version", false, "Display version information")
 	configFile := flag.String("c", "", "config file path (yaml format), sample: config.yaml")
 
 	//; 数据库相关 flag
@@ -99,6 +107,7 @@ func main() {
 
 	//; 自定义帮助信息
 	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "%s %s (git: %s, built: %s)\n\n", os.Args[0], Version, GitHash, BuildTime)
 		fmt.Fprintf(os.Stderr, "Usage: %s [options]\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "\nSubcommands:\n")
 		fmt.Fprintf(os.Stderr, "  init-config    Generate default config file (config.yaml)\n")
@@ -115,6 +124,12 @@ func main() {
 
 	if *helpFlag {
 		flag.Usage()
+		os.Exit(0)
+	}
+
+	//; 显示版本信息
+	if *versionFlag {
+		fmt.Fprintf(os.Stdout, "%s %s (git: %s, built: %s)\n", os.Args[0], Version, GitHash, BuildTime)
 		os.Exit(0)
 	}
 

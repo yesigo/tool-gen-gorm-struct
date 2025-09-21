@@ -1,8 +1,8 @@
 # Makefile
 .PHONY: build test lint clean install
 
-BINARY_NAME=genGormStruct
-VERSION=1.0.0
+BINARY_NAME=genGormStructV2
+VERSION=2.0.0
 BUILD_TIME=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 GIT_HASH=$(shell git rev-parse --short HEAD)
 LDFLAGS=-ldflags "-X main.Version=$(VERSION) -X main.BuildTime=$(BUILD_TIME) -X main.GitHash=$(GIT_HASH)"
