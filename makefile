@@ -1,26 +1,27 @@
 # Makefile
 .PHONY: build test lint clean install
 
-BINARY_NAME=my-go-script
+BINARY_NAME=genGormStruct
 VERSION=1.0.0
 BUILD_TIME=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 GIT_HASH=$(shell git rev-parse --short HEAD)
 LDFLAGS=-ldflags "-X main.Version=$(VERSION) -X main.BuildTime=$(BUILD_TIME) -X main.GitHash=$(GIT_HASH)"
+X_CMD=.
 
 build:
 	@echo "构建 $(BINARY_NAME)..."
-	go build $(LDFLAGS) -o bin/$(BINARY_NAME) ./cmd/script
+	go build $(LDFLAGS) -o bin/$(BINARY_NAME) ${X_CMD_DIR}
 
 build-all: build-linux build-darwin build-windows
 
 build-linux:
-	GOOS=linux GOARCH=amd64 go build $(LDFLAGS) -o bin/$(BINARY_NAME)-linux-amd64 ./cmd/script
+	GOOS=linux GOARCH=amd64 go build $(LDFLAGS) -o bin/$(BINARY_NAME)-linux-amd64 ${X_CMD_DIR}
 
 build-darwin:
-	GOOS=darwin GOARCH=amd64 go build $(LDFLAGS) -o bin/$(BINARY_NAME)-darwin-amd64 ./cmd/script
+	GOOS=darwin GOARCH=amd64 go build $(LDFLAGS) -o bin/$(BINARY_NAME)-darwin-amd64 ${X_CMD_DIR}
 
 build-windows:
-	GOOS=windows GOARCH=amd64 go build $(LDFLAGS) -o bin/$(BINARY_NAME)-windows-amd64.exe ./cmd/script
+	GOOS=windows GOARCH=amd64 go build $(LDFLAGS) -o bin/$(BINARY_NAME)-windows-amd64.exe ${X_CMD_DIR}
 
 test:
 	@echo "运行测试..."
@@ -31,14 +32,14 @@ lint:
 	golangci-lint run
 
 install:
-	go install ./cmd/script
+	go install ${X_CMD_DIR}
 
 clean:
 	@echo "清理构建文件..."
 	rm -rf bin/ output/ coverage.out
 
 run:
-	go run ./cmd/script/main.go
+	go run ${X_CMD_DIR}/main.go
 
 help:
 	@echo "可用命令:"
