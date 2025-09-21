@@ -1,0 +1,16 @@
+# genGormStruct 默认配置文件
+# 命令行 flag 优先级高于配置文件
+
+database:
+  host: "127.0.0.1"      # 数据库主机地址
+  port: "3306"           # 数据库端口
+  user: "root"           # 数据库用户名
+  password: "p@ssw0rd"   # 数据库密码
+  dbname: "dbname"       # 数据库名称
+  # dsn: ""              # 自定义 DSN（如果设置，将忽略上述配置）
+  ##; 示例@{dsn}: user:pass@tcp(host:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local
+
+output:
+  dir: "./outputs"       # 输出目录
+  pkgname: "gorm2model"  # 生成的 go 包名
+  ##; 生成的 go 包名，用于组织生成的包（默认值：gorm2model）
