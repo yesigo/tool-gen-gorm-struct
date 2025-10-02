@@ -2,6 +2,14 @@
 
 基于 [GORM Gen](https://gorm.io/gen/) 的数据库模型代码生成工具，支持从 MySQL 数据库自动生成 GORM v2 模型代码。
 
+## 说明
+
+- 注意: 官方已经提供了 `gentool` 工具，建议使用官方工具。
+- 参考官方文档: https://gorm.io/gen/gen_tool.html
+```bash
+go install gorm.io/gen/tools/gentool@latest
+```
+
 ## 功能特性
 
 - 自动生成 GORM v2 模型代码
